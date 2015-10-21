@@ -1,5 +1,6 @@
 package com.theironyard.browserandroid;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,17 +23,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    addressBar = (EditText) findViewById(R.id.editText);
-    backButton = (Button) findViewById(R.id.backButton);
-    forwardButton = (Button) findViewById(R.id.forwardButton);
-    goButton = (Button) findViewById(R.id.goButton);
-    webView = (WebView) findViewById(R.id.webView);
+        addressBar = (EditText) findViewById(R.id.editText);
+        backButton = (Button) findViewById(R.id.backButton);
+        forwardButton = (Button) findViewById(R.id.forwardButton);
+        goButton = (Button) findViewById(R.id.goButton);
+        webView = (WebView) findViewById(R.id.webView);
 
-    backButton.setOnClickListener(this);
-    forwardButton.setOnClickListener(this);
-    goButton.setOnClickListener(this);
+        backButton.setOnClickListener(this);
+        forwardButton.setOnClickListener(this);
+        goButton.setOnClickListener(this);
 
-    webView.setWebViewClient(new WebViewClient());
+        WebViewClient client = new WebViewClient(){
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                addressBar.setText(url);
+
+            }
+        };
+
+        webView.setWebViewClient(client);
 
     }
 
